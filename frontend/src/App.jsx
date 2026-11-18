@@ -3,17 +3,18 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
-import Form from './Component/Form'
+import Navbar from './Component/Navbar'
+import Carousel from './Component/Carousel'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>
-   <h1>hello java</h1>
-   <p>react</p>
-   <Form/>
-   </div>
+   <div 
+    style={{ backgroundColor: "#C8A2E8", minHeight: "100vh" }}>
+    <Navbar/>
+    <Carousel/>
+    </div>
   )
 }
 
