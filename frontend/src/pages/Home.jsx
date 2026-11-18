@@ -108,12 +108,12 @@ export default function Home() {
       >
         <div className="luxury-container">
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '2rem',
-              alignItems: 'center'
-            }}
+              className="home-hero-grid"
+              style={{display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '2rem',
+                alignItems: 'center'
+              }}
           >
             {/* Left Content */}
             <div style={{ maxWidth: '540px' }}>
@@ -203,19 +203,20 @@ export default function Home() {
             </div>
 
             {/* Right Banner Image */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div
-                style={{
-                  width: '100%',
-                  maxWidth: '380px',
-                  height: '420px',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  boxShadow: '0 16px 40px rgba(86, 54, 111, 0.18)',
-                  border: '4px solid #FFFFFF',
-                  position: 'relative'
-                }}
-              >
+            <div className="home-hero-image" style={{ display: 'flex', justifyContent: 'center' }}>
+                <div
+  className="hero-image-box"
+  style={{
+    width: '100%',
+    maxWidth: '480px',
+    height: '520px',
+    borderRadius: '20px',
+    overflow: 'hidden',
+    boxShadow: '0 16px 40px rgba(86, 54, 111, 0.18)',
+    border: '4px solid #FFFFFF',
+    position: 'relative'
+  }}
+>
                 <img
                   src={heroSlides[heroSlide].image}
                   alt={heroSlides[heroSlide].title}
@@ -273,8 +274,8 @@ export default function Home() {
       </section>
 
       {/* 2. FEATURED CATEGORIES (SMALL VERTICAL BOX CARDS IN ONE ROW) */}
-      <section className="luxury-container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
+      <section className="luxury-container category-section">
+        <div className="category-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem' }}>
           <div>
             <h2 style={{ fontSize: '1.5rem', color: 'var(--color-dark)', margin: 0, fontWeight: 700 }}>
               Featured Categories
@@ -473,8 +474,10 @@ export default function Home() {
 {/* 3. TRENDING NOW */}
 
 <section className="luxury-container">
-  <div style={{
-    display: 'flex',
+  <div
+    className="home-horizontal-row"
+   style={{
+    display: 'grid',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '1.2rem'
@@ -483,7 +486,7 @@ export default function Home() {
     <Link to="/shop?sort=popularity">View All →</Link>
   </div>
 
-  <div style={{
+  <div className="home-horizontal-row" style={{
     display: 'grid',
     gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))',
     gap: '1.1rem',
@@ -501,7 +504,9 @@ export default function Home() {
 <section className="luxury-container">
   <h2>New Arrivals</h2>
 
-  <div style={{
+  <div 
+  className="home-horizontal-row"
+  style={{
     display: 'grid',
     gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))',
     gap: '1.1rem',
@@ -518,7 +523,9 @@ export default function Home() {
 <section className="luxury-container">
   <h2>Best Sellers</h2>
 
-  <div style={{
+  <div 
+  className="home-horizontal-row"
+  style={{
     display: 'grid',
     gridTemplateColumns: 'repeat(6, minmax(150px, 1fr))',
     gap: '1.1rem',
@@ -642,6 +649,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
 
       {/* Responsive Styles */}
       <style>{`
@@ -661,7 +669,98 @@ export default function Home() {
             grid-template-columns: 1fr !important;
           }
         }
-      `}</style>
+          @media screen and (max-width: 600px) {
+  .home-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+  /* Mobile Horizontal Scrolling */
+@media screen and (max-width: 600px) {
+
+  /* Featured Categories */
+  .vertical-box-row {
+    display: grid !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: 150px !important;
+    grid-template-columns: none !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 12px !important;
+    padding-bottom: 12px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .small-vertical-cat-card {
+    min-width: 150px !important;
+    scroll-snap-align: start;
+  }
+
+  /* Trending, New Arrivals, Best Sellers */
+  .home-horizontal-row {
+    display: grid !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: 72% !important;
+    grid-template-columns: none !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 12px !important;
+    padding-bottom: 12px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .home-horizontal-row > * {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  /* Hide scrollbar but allow swiping */
+  .vertical-box-row::-webkit-scrollbar,
+  .home-horizontal-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vertical-box-row,
+  .home-horizontal-row {
+    scrollbar-width: none;
+  }
+}
+  @media screen and (max-width: 600px) {
+  .category-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .category-section .vertical-box-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 12px !important;
+    padding: 4px 4px 14px !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+  }
+
+  .category-section .small-vertical-cat-card {
+    flex: 0 0 150px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    scroll-snap-align: start;
+  }
+
+  .category-section .vertical-box-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+      `}
+      </style>
 
     </div>
   );

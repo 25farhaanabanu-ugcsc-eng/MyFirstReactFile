@@ -456,12 +456,13 @@ export default function Products() {
             </div>
           ) : (
             <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
-                gap: '1.25rem'
-              }}
-            >
+  className="shop-products-grid"
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
+    gap: '1.25rem'
+  }}
+>
               {filteredProducts.map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}

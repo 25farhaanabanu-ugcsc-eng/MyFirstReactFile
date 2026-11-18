@@ -79,11 +79,12 @@ export default function Navbar() {
           <span>✨ Spring Lavender Collection • Free Luxury Shipping on orders over $100 • Code: <strong>LAVENDER15</strong> for 15% OFF</span>
         </div>
 
-        <div className="luxury-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
+        <div className="luxury-container navbar-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
           
           {/* Brand Logo */}
           <Link
             to="/"
+            className="navbar-brand"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -167,7 +168,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action Icons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div className="navbar-actions"  style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             
             {/* Search Trigger */}
             <button
@@ -194,6 +195,7 @@ export default function Navbar() {
             {/* Wishlist Link with Badge */}
             <Link
               to="/wishlist"
+              className="navbar-wishlist"
               aria-label="Wishlist"
               style={{
                 position: 'relative',
@@ -236,6 +238,7 @@ export default function Navbar() {
             {/* Cart Link with Badge */}
             <Link
               to="/cart"
+              className="navbar-cart"
               aria-label="Shopping Cart"
               style={{
                 position: 'relative',
@@ -279,6 +282,7 @@ export default function Navbar() {
             <div style={{ position: 'relative' }}>
               {currentUser ? (
                 <button
+                className="navbar-profile-btn"
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   style={{
                     display: 'flex',
@@ -571,6 +575,62 @@ export default function Navbar() {
             display: block !important;
           }
         }
+          @media screen and (max-width: 600px) {
+  .navbar-main {
+    height: 60px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    gap: 5px !important;
+  }
+
+  .navbar-brand {
+    gap: 4px !important;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .navbar-brand img {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .navbar-brand span:first-child {
+    font-size: 1.15rem !important;
+  }
+
+  .navbar-brand span:last-child {
+    font-size: 0.48rem !important;
+  }
+
+  .navbar-actions {
+    gap: 3px !important;
+    flex-shrink: 0;
+  }
+
+  .navbar-actions button,
+  .navbar-actions a {
+    padding: 5px !important;
+  }
+
+  .navbar-wishlist,
+  .navbar-cart {
+    display: none !important;
+  }
+
+  .navbar-profile-btn {
+    padding: 3px !important;
+    border: none !important;
+  }
+
+  .navbar-profile-btn span,
+  .navbar-profile-btn svg {
+    display: none !important;
+  }
+
+  .mobile-hamburger-btn {
+    padding: 4px !important;
+  }
+}
       `}</style>
     </>
   );

@@ -27,3 +27,14 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+/* Mobile Responsive Only */
+@media screen and (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
