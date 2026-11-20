@@ -42,11 +42,11 @@ export const ProductProvider = ({ children }) => {
   const addProduct = (newProduct) => {
     const productWithId = {
       ...newProduct,
-      id: `prod-${Date.now()}`,
+      id: `prod-₹{Date.now()}`,
       rating: newProduct.rating || 5.0,
       reviewsCount: newProduct.reviewsCount || 0,
       inStock: newProduct.inStock !== undefined ? newProduct.inStock : true,
-      sku: newProduct.sku || `SA-${Date.now().toString().slice(-4)}`
+      sku: newProduct.sku || `SA-₹{Date.now().toString().slice(-4)}`
     };
     setProducts(prev => [productWithId, ...prev]);
     return productWithId;
@@ -67,7 +67,7 @@ export const ProductProvider = ({ children }) => {
   const addCategory = (categoryData) => {
     const newCat = {
       ...categoryData,
-      id: categoryData.id || `cat-${Date.now()}`,
+      id: categoryData.id || `cat-₹{Date.now()}`,
       slug: categoryData.name.toLowerCase().replace(/\s+/g, '-'),
       itemCount: 0
     };

@@ -76,7 +76,7 @@ export default function Navbar() {
             fontWeight: 500
           }}
         >
-          <span>✨ Spring Lavender Collection • Free Luxury Shipping on orders over $100 • Code: <strong>LAVENDER15</strong> for 15% OFF</span>
+          <span>✨ Spring Lavender Collection • Free Luxury Shipping on orders over ₹100 • Code: <strong>LAVENDER15</strong> for 15% OFF</span>
         </div>
 
         <div className="luxury-container navbar-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
@@ -96,8 +96,8 @@ export default function Navbar() {
               src="/logo.png"
               alt="StyleAura Logo"
               style={{
-                width: '57px',
-                height: '57px',
+                width: '67px',
+                height: '67px',
                 objectFit: 'contain',
                 borderRadius: '8px'
               }}

@@ -8,3 +8,13 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 );
+function Sample() {
+  return (
+    <div>
+      <h2>Name:S.Farhaana Banu</h2>
+      <h2>Class:B.sc.Computer Science</h2>
+    </div>
+  )
+}
+export default Sample
+

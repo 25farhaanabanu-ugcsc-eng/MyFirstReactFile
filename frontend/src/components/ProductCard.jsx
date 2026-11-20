@@ -221,11 +221,11 @@ export default function ProductCard({ product }) {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '0.55rem', borderTop: '1px solid var(--color-neutral-light)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
               <span style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                ${product.price}
+                ₹{product.price}
               </span>
               {product.originalPrice && (
                 <span style={{ fontSize: '0.8rem', color: 'var(--color-text-light)', textDecoration: 'line-through' }}>
-                  ${product.originalPrice}
+                  ₹{product.originalPrice}
                 </span>
               )}
             </div>

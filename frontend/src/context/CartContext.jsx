@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = (product, size = 'M', color = null, quantity = 1) => {
     const selectedColor = color || (product.colors && product.colors[0] ? product.colors[0].name : 'Default');
     const selectedSize = size || (product.sizes && product.sizes[0] ? product.sizes[0] : 'Standard');
-    const cartItemId = `${product.id}-${selectedSize}-${selectedColor}`;
+    const cartItemId = `₹{product.id}-₹{selectedSize}-₹{selectedColor}`;
 
     setCart(prev => {
       const existingIndex = prev.findIndex(item => item.cartItemId === cartItemId);
@@ -65,14 +65,14 @@ export const CartProvider = ({ children }) => {
       }
     });
 
-    showToast(`Added ${quantity}x "${product.name}" (${selectedSize}) to Cart`);
+    showToast(`Added ₹{quantity}x "₹{product.name}" (₹{selectedSize}) to Cart`);
   };
 
   const removeFromCart = (cartItemId) => {
     const item = cart.find(i => i.cartItemId === cartItemId);
     setCart(prev => prev.filter(i => i.cartItemId !== cartItemId));
     if (item) {
-      showToast(`Removed "${item.name}" from Cart`);
+      showToast(`Removed "₹{item.name}" from Cart`);
     }
   };
 
@@ -115,7 +115,7 @@ export const CartProvider = ({ children }) => {
       setDiscountPercent(0);
       setFlatDiscount(20);
       showToast('Promo code PURPLE20 applied: $20 OFF!');
-      return { success: true, message: '$20 discount applied!' };
+      return { success: true, message: '₹20 discount applied!' };
     } else {
       return { success: false, message: 'Invalid promo code. Try LAVENDER15 or STYLE10' };
     }
