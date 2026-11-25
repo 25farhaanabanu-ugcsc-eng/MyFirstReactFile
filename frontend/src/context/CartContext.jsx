@@ -114,7 +114,7 @@ export const CartProvider = ({ children }) => {
       setPromoCode(cleaned);
       setDiscountPercent(0);
       setFlatDiscount(20);
-      showToast('Promo code PURPLE20 applied: $20 OFF!');
+      showToast('Promo code PURPLE20 applied: ₹20 OFF!');
       return { success: true, message: '₹20 discount applied!' };
     } else {
       return { success: false, message: 'Invalid promo code. Try LAVENDER15 or STYLE10' };

@@ -43,6 +43,13 @@ export default function ProductDetails() {
       setSelectedColor(product.colors?.[0]?.name || 'Pastel');
       setQuantity(1);
       window.scrollTo(0, 0);
+      try {
+        const stored = JSON.parse(localStorage.getItem('styleaura_recently_viewed') || '[]');
+        const updated = [product.id, ...stored.filter(pid => pid !== product.id)].slice(0, 8);
+        localStorage.setItem('styleaura_recently_viewed', JSON.stringify(updated));
+      } catch {
+        // ignore storage errors
+      }
     }
   }, [id, product]);
 
@@ -66,6 +73,15 @@ export default function ProductDetails() {
     setAddedAnimation(true);
     setTimeout(() => setAddedAnimation(false), 1500);
   };
+
+  const handleBuyNow = () => {
+    addToCart(product, selectedSize, selectedColor, quantity);
+    navigate('/cart');
+  };
+
+  const completeTheLookItems = products
+    .filter(p => p.id !== product.id && (p.category === 'accessories' || p.category !== product.category))
+    .slice(0, 4);
 
   const handleShare = () => {
     navigator.clipboard?.writeText(window.location.href);
@@ -204,16 +220,16 @@ export default function ProductDetails() {
           {/* Pricing */}
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '1.6rem', paddingBottom: '1.4rem', borderBottom: '1px solid var(--color-border)' }}>
             <span style={{ fontSize: '2.1rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-              ${product.price}
+              ₹{product.price}
             </span>
             {product.originalPrice && (
               <span style={{ fontSize: '1.3rem', color: 'var(--color-text-light)', textDecoration: 'line-through' }}>
-                ${product.originalPrice}
+                ₹{product.originalPrice}
               </span>
             )}
             {product.originalPrice && (
               <span className="luxury-badge badge-sale">
-                Save ${product.originalPrice - product.price} ({(Math.round(((product.originalPrice - product.price)/product.originalPrice)*100))}% OFF)
+                Save ₹{product.originalPrice - product.price} ({(Math.round(((product.originalPrice - product.price)/product.originalPrice)*100))}% OFF)
               </span>
             )}
           </div>
@@ -308,20 +324,18 @@ export default function ProductDetails() {
             <button
               onClick={handleAddToCart}
               className="btn-luxury-primary"
-              style={{ flex: 1, padding: '0.9rem 2rem', fontSize: '1rem' }}
-              disabled={addedAnimation}
+              style={{ flex: 1, minWidth: '180px', padding: '0.95rem 1.4rem' }}
             >
-              {addedAnimation ? (
-                <>
-                  <Check size={20} />
-                  <span>Added {quantity}x to Shopping Bag!</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingBag size={20} />
-                  <span>Add to Shopping Bag</span>
-                </>
-              )}
+              {addedAnimation ? <Check size={18} /> : <ShoppingBag size={18} />}
+              <span>{addedAnimation ? 'Added to Bag' : 'Add to Bag'}</span>
+            </button>
+
+            <button
+              onClick={handleBuyNow}
+              className="btn-luxury-outline"
+              style={{ flex: 1, minWidth: '150px', padding: '0.95rem 1.4rem', borderColor: 'var(--color-dark)', color: 'var(--color-dark)' }}
+            >
+              <span>Buy Now</span>
             </button>
 
             <button
@@ -354,7 +368,7 @@ export default function ProductDetails() {
           <div style={{ backgroundColor: 'var(--color-bg)', borderRadius: 'var(--radius-md)', padding: '1.2rem 1.4rem', border: '1px solid var(--color-border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '0.88rem', color: 'var(--color-dark)' }}>
               <Truck size={18} color="var(--color-accent)" />
-              <span>Complimentary luxury delivery on orders over $100</span>
+              <span>Complimentary luxury delivery on orders over ₹100</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '0.88rem', color: 'var(--color-dark)' }}>
               <RotateCcw size={18} color="var(--color-accent)" />
@@ -367,6 +381,39 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
+
+      {/* Complete The Look Section */}
+      {completeTheLookItems.length > 0 && (
+        <section style={{ marginTop: '5rem', paddingTop: '3rem', borderTop: '1px solid var(--color-border)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+            <div>
+              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--color-accent)', fontWeight: 700 }}>
+                Curated Styling
+              </span>
+              <h2 style={{ fontSize: '2rem', color: 'var(--color-dark)', marginTop: '0.2rem' }}>
+                Complete The Look
+              </h2>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
+                Pair with matching accessories, bags, footwear, and complementary pieces.
+              </p>
+            </div>
+            <Link to="/shop?category=accessories" className="btn-luxury-outline">
+              <span>Explore Accessories</span>
+            </Link>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+              gap: '1.6rem'
+            }}
+          >
+            {completeTheLookItems.map(item => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Related Products Section */}
       {relatedProducts.length > 0 && (

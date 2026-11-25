@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
+import StyleAuraFeatures from '../components/StyleAuraFeatures';
 
 export default function Home() {
   const { products, categories } = useProducts();
@@ -652,6 +653,8 @@ export default function Home() {
       
 
       {/* Responsive Styles */}
+      <StyleAuraFeatures />
+
       <style>{`
         .small-vertical-cat-card:hover {
           transform: translateY(-4px);

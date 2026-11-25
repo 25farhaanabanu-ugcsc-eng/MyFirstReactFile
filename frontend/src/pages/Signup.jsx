@@ -7,7 +7,6 @@ import {
   Eye, 
   EyeOff, 
   ArrowRight, 
-  Sparkles, 
   CheckCircle2 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -90,24 +89,20 @@ export default function Signup() {
       >
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="StyleAura Logo"
             style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-primary-light)',
-              color: 'var(--color-dark)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1rem',
-              border: '1px solid var(--color-secondary)'
+              width: '67px',
+              height: '67px',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              display: 'block',
+              margin: '0 auto 1rem'
             }}
-          >
-            <Sparkles size={24} color="var(--color-accent)" />
-          </div>
+          />
           <h1 style={{ fontSize: '1.9rem', color: 'var(--color-dark)', marginBottom: '0.4rem' }}>
-            Join StyleAura
+            Create Your Account
           </h1>
           <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
             Enjoy private previews, seasonal discounts, and complimentary gift wrapping.

@@ -255,7 +255,7 @@ export default function SearchBar({ isOpen, onClose }) {
                       {prod.name}
                     </h4>
                     <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                      {prod.categoryName} • ${prod.price}
+                      {prod.categoryName} • ₹{prod.price}
                     </span>
                   </div>
                   <ArrowRight size={18} color="var(--color-accent)" />

@@ -43,10 +43,14 @@ export default function Products() {
 
   // Filtering & Sorting logic
   const filteredProducts = useMemo(() => {
-    const searchQuery = (searchParams.get('search') || '').toLowerCase().trim();
+    const searchQuery = (searchParams.get('search') || searchParams.get('q') || '').toLowerCase().trim();
+    const filterParam = searchParams.get('filter');
 
     return products
       .filter(product => {
+        if (filterParam === 'new' && !product.isNewArrival) return false;
+        if (filterParam === 'trending' && !product.isTrending) return false;
+
         // Search filter
         if (searchQuery) {
           const matchTitle = product.name.toLowerCase().includes(searchQuery);
@@ -236,7 +240,7 @@ export default function Products() {
                 Max Price
               </h4>
               <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                ${priceRange}
+                ₹{priceRange}
               </span>
             </div>
             <input
@@ -253,8 +257,8 @@ export default function Products() {
               }}
             />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--color-text-light)', marginTop: '0.2rem' }}>
-              <span>$40</span>
-              <span>$450</span>
+              <span>₹40</span>
+              <span>₹450</span>
             </div>
           </div>
 
@@ -530,7 +534,7 @@ export default function Products() {
               <div style={{ marginBottom: '1.4rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                   <h4 style={{ fontSize: '0.9rem', color: 'var(--color-dark)' }}>Max Price</h4>
-                  <span style={{ fontWeight: 700 }}>${priceRange}</span>
+                  <span style={{ fontWeight: 700 }}>₹{priceRange}</span>
                 </div>
                 <input
                   type="range"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ShoppingBag, 
   Heart, 
@@ -26,6 +26,9 @@ export default function Navbar() {
   const { wishlistCount } = useWishlist();
   const { currentUser, logout, isAdmin, switchDemoRole } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isAuthPage = ['/signup', '/login', '/forgot-password', '/reset-password'].includes(pathname);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   // Scroll effect for sticky navbar elevation
   useEffect(() => {
@@ -61,6 +64,7 @@ export default function Navbar() {
         }}
       >
         {/* Top Announcement Bar */}
+        {!isAuthPage && (
         <div
           style={{
             backgroundColor: 'var(--color-dark)',
@@ -78,6 +82,7 @@ export default function Navbar() {
         >
           <span>✨ Spring Lavender Collection • Free Luxury Shipping on orders over ₹100 • Code: <strong>LAVENDER15</strong> for 15% OFF</span>
         </div>
+        )}
 
         <div className="luxury-container navbar-main" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '76px' }}>
           
@@ -134,42 +139,144 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation Links */}
+          {!isAuthPage && (
           <nav
             style={{
               display: 'none',
               alignItems: 'center',
-              gap: '2.2rem'
+              gap: '1.35rem'
             }}
             className="desktop-nav"
           >
             {[
               { to: '/', label: 'Home' },
-              { to: '/shop', label: 'Shop' },
-              { to: '/categories', label: 'Categories' },
-              { to: '/wishlist', label: 'Wishlist' }
+              {
+                to: '/shop?category=men',
+                label: 'Men',
+                sublinks: [
+                  { to: '/shop?category=men', label: 'All Men' },
+                  { to: '/shop?category=men&q=shirt', label: 'Linen & Shirts' },
+                  { to: '/shop?category=men&q=blazer', label: 'Blazers & Jackets' },
+                  { to: '/shop?category=casual', label: 'Casual Wear' }
+                ]
+              },
+              {
+                to: '/shop?category=women',
+                label: 'Women',
+                sublinks: [
+                  { to: '/shop?category=women', label: 'All Women' },
+                  { to: '/shop?category=women&q=dress', label: 'Dresses & Gowns' },
+                  { to: '/shop?category=traditional', label: 'Ethnic & Traditional' },
+                  { to: '/shop?category=casual', label: 'Casual & Knits' }
+                ]
+              },
+              {
+                to: '/shop?category=kids',
+                label: 'Kids',
+                sublinks: [
+                  { to: '/shop?category=kids', label: 'All Kids' },
+                  { to: '/shop?category=kids&q=party', label: 'Party Wear' },
+                  { to: '/shop?category=kids&q=cotton', label: 'Everyday Cotton' }
+                ]
+              },
+              {
+                to: '/shop?category=beauty',
+                label: 'Beauty',
+                sublinks: [
+                  { to: '/shop?category=beauty', label: 'All Beauty' },
+                  { to: '/shop?category=beauty&q=serum', label: 'Skincare & Serums' },
+                  { to: '/shop?category=beauty&q=lip', label: 'Makeup & Lip' }
+                ]
+              },
+              {
+                to: '/shop?category=accessories',
+                label: 'Accessories',
+                sublinks: [
+                  { to: '/shop?category=accessories', label: 'All Accessories' },
+                  { to: '/shop?category=accessories&q=bag', label: 'Handbags & Totes' },
+                  { to: '/shop?category=accessories&q=scarf', label: 'Scarves & Jewelry' }
+                ]
+              },
+              { to: '/shop?filter=new', label: 'New Arrivals' },
+              { to: '/shop?filter=trending', label: 'Trending' }
             ].map(link => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                style={({ isActive }) => ({
-                  color: isActive ? 'var(--color-dark)' : 'var(--color-text-muted)',
-                  fontWeight: isActive ? 700 : 500,
-                  fontSize: '0.94rem',
-                  textDecoration: 'none',
-                  position: 'relative',
-                  padding: '0.4rem 0',
-                  transition: 'color 0.2s ease',
-                  borderBottom: isActive ? '2px solid var(--color-accent)' : '2px solid transparent'
-                })}
+              <div
+                key={link.label}
+                style={{ position: 'relative' }}
+                onMouseEnter={() => link.sublinks && setActiveDropdown(link.label)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                {link.label}
-              </NavLink>
+                <NavLink
+                  to={link.to}
+                  style={({ isActive }) => ({
+                    color: isActive && link.to === '/' ? 'var(--color-dark)' : 'var(--color-text-muted)',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    textDecoration: 'none',
+                    position: 'relative',
+                    padding: '0.4rem 0',
+                    transition: 'color 0.2s ease',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    whiteSpace: 'nowrap'
+                  })}
+                >
+                  {link.label}
+                  {link.sublinks && <ChevronDown size={13} />}
+                </NavLink>
+
+                {link.sublinks && activeDropdown === link.label && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: 0,
+                      minWidth: '190px',
+                      backgroundColor: '#FFFFFF',
+                      borderRadius: 'var(--radius-md)',
+                      boxShadow: 'var(--shadow-lg)',
+                      border: '1px solid var(--color-border)',
+                      padding: '0.5rem 0',
+                      zIndex: 1002
+                    }}
+                  >
+                    {link.sublinks.map(sub => (
+                      <Link
+                        key={sub.label}
+                        to={sub.to}
+                        onClick={() => setActiveDropdown(null)}
+                        style={{
+                          display: 'block',
+                          padding: '0.55rem 1rem',
+                          fontSize: '0.85rem',
+                          color: 'var(--color-text-main)',
+                          textDecoration: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--color-primary-light)';
+                          e.currentTarget.style.color = 'var(--color-dark)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.color = 'var(--color-text-main)';
+                        }}
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
+          )}
 
           {/* Right Action Icons */}
           <div className="navbar-actions"  style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
             
+            {!isAuthPage && (
+            <>
             {/* Search Trigger */}
             <button
               onClick={() => setSearchOpen(true)}
@@ -277,6 +384,8 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+            </>
+            )}
 
             {/* User Profile / Login Dropdown */}
             <div style={{ position: 'relative' }}>
@@ -418,6 +527,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Hamburger Menu Toggle */}
+            {!isAuthPage && (
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="mobile-hamburger-btn"
@@ -433,11 +543,12 @@ export default function Navbar() {
             >
               {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
+            )}
           </div>
         </div>
 
         {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
+        {!isAuthPage && mobileMenuOpen && (
           <div
             style={{
               backgroundColor: '#FFFFFF',

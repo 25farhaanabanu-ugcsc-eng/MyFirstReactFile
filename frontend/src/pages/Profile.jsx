@@ -198,7 +198,7 @@ export default function Profile() {
                       </span>
 
                       <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                        ${order.total}
+                        ₹{order.total}
                       </span>
                     </div>
                   </div>
@@ -212,7 +212,7 @@ export default function Profile() {
                             <strong>{item.quantity}x</strong> {item.name} {item.size && `(${item.size})`} {item.color && `• ${item.color}`}
                           </span>
                           <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>
-                            ${item.price * item.quantity}
+                            ₹{item.price * item.quantity}
                           </span>
                         </div>
                       ))}
@@ -361,7 +361,7 @@ export default function Profile() {
                   <div key={product.id} style={{ backgroundColor: '#FFFFFF', borderRadius: 'var(--radius-md)', padding: '1rem', border: '1px solid var(--color-border-subtle)', textAlign: 'center' }}>
                     <img src={product.image} alt={product.name} style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '8px', marginBottom: '0.6rem' }} />
                     <h4 style={{ fontSize: '0.92rem', color: 'var(--color-dark)', marginBottom: '0.3rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.name}</h4>
-                    <p style={{ fontWeight: 700, color: 'var(--color-dark)', marginBottom: '0.8rem' }}>${product.price}</p>
+                    <p style={{ fontWeight: 700, color: 'var(--color-dark)', marginBottom: '0.8rem' }}>₹{product.price}</p>
                     <Link to={`/product/${product.id}`} className="btn-luxury-secondary" style={{ width: '100%', padding: '0.45rem', fontSize: '0.78rem' }}>
                       View Piece
                     </Link>

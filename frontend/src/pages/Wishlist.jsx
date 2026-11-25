@@ -172,11 +172,11 @@ export default function Wishlist() {
 
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', marginBottom: '1.2rem' }}>
                   <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                    ${product.price}
+                    ₹{product.price}
                   </span>
                   {product.originalPrice && (
                     <span style={{ fontSize: '0.9rem', color: 'var(--color-text-light)', textDecoration: 'line-through' }}>
-                      ${product.originalPrice}
+                      ₹{product.originalPrice}
                     </span>
                   )}
                 </div>

@@ -188,7 +188,7 @@ export default function Cart() {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--color-text-light)' }}>Total Paid:</span>
-              <strong style={{ color: 'var(--color-dark)' }}>${orderConfirmed.total}</strong>
+              <strong style={{ color: 'var(--color-dark)' }}>₹{orderConfirmed.total}</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <span style={{ fontSize: '0.85rem', color: 'var(--color-text-light)' }}>Delivery To:</span>
@@ -261,7 +261,7 @@ export default function Cart() {
           <span style={{ fontSize: '0.92rem', color: 'var(--color-dark)', fontWeight: 600 }}>
             {amountNeededForFreeShipping === 0
               ? '✨ Congratulations! You unlocked FREE Luxury Shipping!'
-              : `Add $${amountNeededForFreeShipping} more to qualify for FREE Shipping`}
+              : `Add ₹${amountNeededForFreeShipping} more to qualify for FREE Shipping`}
           </span>
         </div>
         <div style={{ width: '100%', height: '8px', backgroundColor: 'var(--color-primary-light)', borderRadius: '999px', overflow: 'hidden' }}>
@@ -349,7 +349,7 @@ export default function Cart() {
                   </div>
 
                   <span style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                    ${item.price * item.quantity}
+                    ₹{item.price * item.quantity}
                   </span>
                 </div>
               </div>
@@ -414,26 +414,26 @@ export default function Cart() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '1.5rem', paddingBottom: '1.4rem', borderBottom: '1px solid var(--color-border)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem' }}>
               <span style={{ color: 'var(--color-text-muted)' }}>Bag Subtotal</span>
-              <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>${subtotal}</span>
+              <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>₹{subtotal}</span>
             </div>
 
             {discount > 0 && (
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem', color: '#2E7D32' }}>
                 <span>Discount ({promoCode})</span>
-                <span style={{ fontWeight: 600 }}>-${discount}</span>
+                <span style={{ fontWeight: 600 }}>-₹{discount}</span>
               </div>
             )}
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem' }}>
               <span style={{ color: 'var(--color-text-muted)' }}>Estimated Shipping</span>
               <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>
-                {shipping === 0 ? 'Complimentary' : `$${shipping}`}
+                {shipping === 0 ? 'Complimentary' : `₹${shipping}`}
               </span>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.92rem' }}>
               <span style={{ color: 'var(--color-text-muted)' }}>Estimated Tax (5%)</span>
-              <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>${tax}</span>
+              <span style={{ fontWeight: 600, color: 'var(--color-dark)' }}>₹{tax}</span>
             </div>
           </div>
 
@@ -673,7 +673,7 @@ export default function Cart() {
                 className="btn-luxury-primary"
                 style={{ width: '100%', padding: '0.95rem', fontSize: '1rem' }}
               >
-                <span>Authorize & Pay ${total}</span>
+                <span>Authorize & Pay ₹{total}</span>
                 <ArrowRight size={18} />
               </button>
             </form>

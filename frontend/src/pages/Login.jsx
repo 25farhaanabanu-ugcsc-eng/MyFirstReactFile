@@ -5,10 +5,7 @@ import {
   Lock, 
   Eye, 
   EyeOff, 
-  ArrowRight, 
-  Sparkles, 
-  ShieldCheck,
-  UserCheck
+  ArrowRight
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -81,54 +78,21 @@ export default function Login() {
       >
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="StyleAura Logo"
             style={{
-              width: '54px',
-              height: '54px',
-              borderRadius: '50%',
-              backgroundColor: 'var(--color-primary-light)',
-              color: 'var(--color-dark)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 1rem',
-              border: '1px solid var(--color-secondary)'
+              width: '67px',
+              height: '67px',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              display: 'block',
+              margin: '0 auto 1rem'
             }}
-          >
-            <Sparkles size={24} color="var(--color-accent)" />
-          </div>
+          />
           <h1 style={{ fontSize: '1.9rem', color: 'var(--color-dark)', marginBottom: '0.4rem' }}>
             Welcome Back
           </h1>
-          <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
-            Access your curated fashion bag, wishlist and couture order history.
-          </p>
-        </div>
-
-        {/* Demo Fast Fill Button */}
-        <div style={{ backgroundColor: 'var(--color-bg)', padding: '0.8rem', borderRadius: 'var(--radius-md)', marginBottom: '1.6rem', border: '1px solid var(--color-border-subtle)', textAlign: 'center' }}>
-          <button
-            type="button"
-            onClick={() => handleQuickDemo('user')}
-            style={{
-              width: '100%',
-              padding: '0.5rem 0.8rem',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--color-secondary)',
-              backgroundColor: '#FFFFFF',
-              fontSize: '0.82rem',
-              fontWeight: 600,
-              color: 'var(--color-dark)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.4rem'
-            }}
-          >
-            <UserCheck size={15} color="var(--color-accent)" />
-            <span>Fast Fill Demo Account (Aria Montgomery)</span>
-          </button>
         </div>
 
         {/* Error Notification */}
@@ -171,9 +135,9 @@ export default function Login() {
           <div className="luxury-input-group" style={{ marginBottom: '1.6rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <label>Password</label>
-              <a href="#forgot" style={{ fontSize: '0.8rem', color: 'var(--color-accent)' }}>
+              <Link to="/forgot-password" style={{ fontSize: '0.8rem', color: 'var(--color-accent)' }}>
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <div style={{ position: 'relative' }}>
               <Lock size={18} color="var(--color-text-light)" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
@@ -212,7 +176,7 @@ export default function Login() {
             style={{ width: '100%', padding: '0.9rem', fontSize: '0.98rem' }}
             disabled={loading}
           >
-            <span>{loading ? 'Authenticating...' : 'Sign In to Boutique'}</span>
+            <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
             <ArrowRight size={18} />
           </button>
         </form>
@@ -220,9 +184,9 @@ export default function Login() {
         {/* Switch to Signup */}
         <div style={{ textAlign: 'center', marginTop: '1.8rem', paddingTop: '1.5rem', borderTop: '1px solid var(--color-neutral-light)' }}>
           <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-            New to StyleAura?{' '}
+            Don&apos;t have an account?{' '}
             <Link to="/signup" style={{ color: 'var(--color-accent)', fontWeight: 600 }}>
-              Create an Account
+              Sign Up
             </Link>
           </p>
         </div>

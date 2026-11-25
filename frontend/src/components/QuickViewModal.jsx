@@ -141,16 +141,16 @@ export default function QuickViewModal({ product, isOpen, onClose }) {
             {/* Price */}
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem', marginBottom: '1rem' }}>
               <span style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                ${product.price}
+                ₹{product.price}
               </span>
               {product.originalPrice && (
                 <span style={{ fontSize: '1.05rem', color: 'var(--color-text-light)', textDecoration: 'line-through' }}>
-                  ${product.originalPrice}
+                  ₹{product.originalPrice}
                 </span>
               )}
               {product.originalPrice && (
                 <span className="luxury-badge badge-sale">
-                  Save ${product.originalPrice - product.price}
+                  Save ₹{product.originalPrice - product.price}
                 </span>
               )}
             </div>

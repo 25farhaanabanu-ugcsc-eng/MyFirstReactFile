@@ -326,7 +326,7 @@ export default function AdminDashboard() {
                     </td>
 
                     <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: 'var(--color-dark)' }}>
-                      ${prod.price}
+                      ₹{prod.price}
                     </td>
 
                     <td style={{ padding: '0.85rem 1rem', color: 'var(--color-text-main)' }}>
@@ -429,7 +429,7 @@ export default function AdminDashboard() {
                     </td>
 
                     <td style={{ padding: '0.9rem 1rem', fontWeight: 800, color: 'var(--color-dark)' }}>
-                      ${ord.total}
+                      ₹{ord.total}
                     </td>
 
                     <td style={{ padding: '0.9rem 1rem' }}>
