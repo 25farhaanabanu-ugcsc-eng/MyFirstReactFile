@@ -25,7 +25,7 @@ export default function Signup() {
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
@@ -52,7 +52,7 @@ export default function Signup() {
     }
 
     setLoading(true);
-    const result = signup(name, email, password);
+    const result = await signup(name, email, password);
     setLoading(false);
 
     if (result.success) {

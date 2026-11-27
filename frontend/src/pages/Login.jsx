@@ -19,7 +19,7 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
 
@@ -29,7 +29,7 @@ export default function Login() {
     }
 
     setLoading(true);
-    const result = login(email, password);
+    const result = await login(email, password);
     setLoading(false);
 
     if (result.success) {

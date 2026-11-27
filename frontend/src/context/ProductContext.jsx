@@ -1,43 +1,47 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { initialProducts } from '../data/products';
-import { categories as defaultCategories } from '../data/categories';
+import { apiRequest } from '../services/api';
 
 const ProductContext = createContext();
 
+const normalizeProduct = (p) => ({
+  ...p,
+  id: p.id || p._id,
+});
+
+const normalizeCategory = (c) => ({
+  ...c,
+  id: c.id || c._id,
+});
+
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState(() => {
-    try {
-      const saved = localStorage.getItem('styleaura_products');
-      return saved ? JSON.parse(saved) : initialProducts;
-    } catch {
-      return initialProducts;
-    }
-  });
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [categories, setCategories] = useState(() => {
+  const fetchCatalog = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const saved = localStorage.getItem('styleaura_categories');
-      return saved ? JSON.parse(saved) : defaultCategories;
-    } catch {
-      return defaultCategories;
+      const [prodData, catData] = await Promise.all([
+        apiRequest('/api/products'),
+        apiRequest('/api/categories'),
+      ]);
+      const prodList = Array.isArray(prodData) ? prodData : (prodData.products || []);
+      const catList = Array.isArray(catData) ? catData : (catData.categories || []);
+      setProducts(prodList.map(normalizeProduct));
+      setCategories(catList.map(normalizeCategory));
+    } catch (err) {
+      console.error('Failed to fetch catalog from backend:', err);
+      setError(err.message || 'Failed to load products');
+    } finally {
+      setLoading(false);
     }
-  });
+  };
 
   useEffect(() => {
-    try {
-      localStorage.setItem('styleaura_products', JSON.stringify(products));
-    } catch (e) {
-      console.error('Failed to save products', e);
-    }
-  }, [products]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('styleaura_categories', JSON.stringify(categories));
-    } catch (e) {
-      console.error('Failed to save categories', e);
-    }
-  }, [categories]);
+    fetchCatalog();
+  }, []);
 
   const addProduct = (newProduct) => {
     const productWithId = {
@@ -76,16 +80,16 @@ export const ProductProvider = ({ children }) => {
   };
 
   const resetToDefault = () => {
-    setProducts(initialProducts);
-    setCategories(defaultCategories);
-    localStorage.removeItem('styleaura_products');
-    localStorage.removeItem('styleaura_categories');
+    fetchCatalog();
   };
 
   return (
     <ProductContext.Provider value={{
       products,
       categories,
+      loading,
+      error,
+      refreshCatalog: fetchCatalog,
       addProduct,
       updateProduct,
       deleteProduct,
